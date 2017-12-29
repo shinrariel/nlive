@@ -8,9 +8,16 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget \
 	libxml2-devel libXpm* libX* libtiff libtiff* make mpfr ncurses* ntp openssl \
 	nasm nasm* openssl-devel patch pcre-devel perl php-common php-gd policycoreutils ppl \
 	telnet t1lib t1lib* zlib-devel libxml2 libxml2-devel libxslt libxslt-devel unzip && \
-	cd /root && \
+	mkdir /root/software && \
+	cd /root/software && \
 	git clone https://github.com/alibaba/tengine.git && \
 	git clone https://github.com/FFmpeg/FFmpeg.git && \
 	git clone https://github.com/NeusoftSecurity/SEnginx.git && \
+	git clone https://github.com/arut/nginx-rtmp-module.git && \
+	wget http://nginx.org/download/nginx-1.13.8.tar.gz && \
+	tar -xzf nginx-1.13.8.tar.gz
+	
+CMD /bin/bash
+	
 	
 	
