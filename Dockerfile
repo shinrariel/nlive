@@ -15,13 +15,19 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget \
 	git clone https://github.com/FFmpeg/FFmpeg.git && \
 	git clone https://github.com/NeusoftSecurity/SEnginx.git && \
 	git clone https://github.com/arut/nginx-rtmp-module.git && \
+	git clone https://github.com/winshining/nginx-http-flv-module.git && \
 	wget http://nginx.org/download/nginx-1.13.8.tar.gz && \
 	tar -xzf nginx-1.13.8.tar.gz && \
 	cp -r nginx-rtmp-module ./tengine && \
 	cp -r nginx-rtmp-module ./SEnginx && \
 	cp -r nginx-rtmp-module ./nginx-1.13.8 && \
 	mkdir /root/html && \
-	
+	mkdir /root/tengine && \
+	mkdir /root/selinux && \
+	mkdir /root/nginx && \
+	mkdir /root/hls && \
+	mkdir /root/vod && \
+	mkdir /root/ffmpeg
 	
 ADD conf /root/config
 CMD /bin/bash
