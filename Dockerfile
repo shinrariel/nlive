@@ -14,7 +14,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget \
 	mkdir /root/web && \
 	mkdir /root/web/html && \
 	mkdir /root/soft/tengine && \
-	mkdir /root/soft/selinux && \
+	mkdir /root/soft/senginx && \
 	mkdir /root/soft/nginx && \
 	mkdir /root/web/hls && \
 	mkdir /root/web/vod && \
@@ -36,7 +36,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget \
 	make && \
 	make install && \
 	cd /root/src/SEnginx && \
-	./configure --prefix=/root/soft/selinux --with-http_ssl_module --add-module=./nginx-http-flv-module && \
+	./configure --prefix=/root/soft/senginx --with-http_ssl_module --add-module=./nginx-http-flv-module && \
 	make && \
 	make install && \
 	cd /root/src/nginx-1.13.8 && \
@@ -55,7 +55,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget \
 	ln -s /root/soft/senginx/conf /root/config/senginx_conf && \
 	ln -s /root/soft/tengine/logs /root/logs/tengine_logs && \
 	ln -s /root/soft/nginx/logs /root/logs/nginx_logs && \
-	ln -s /root/soft/selinux/logs /root/logs/selinux_logs && \
+	ln -s /root/soft/senginx/logs /root/logs/senginx_logs && \
 	mv /root/soft/tengine/conf/nginx.conf /root/soft/tengine/conf/nginx.conf.bak && \
 	mv /root/soft/nginx/conf/nginx.conf /root/soft/nginx/conf/nginx.conf.bak && \
 	mv /root/soft/senginx/conf/nginx.conf /root/soft/senginx/conf/nginx.conf.bak
