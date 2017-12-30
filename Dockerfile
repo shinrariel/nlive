@@ -31,6 +31,9 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget \
 	cp -r nginx-rtmp-module ./tengine && \
 	cp -r nginx-rtmp-module ./SEnginx && \
 	cp -r nginx-rtmp-module ./nginx-1.13.8 && \
+	cp -r nginx-http-flv-module ./tengine && \
+	cp -r nginx-http-flv-module ./SEnginx && \
+	cp -r nginx-http-flv-module ./nginx-1.13.8 && \
 	cd /root/src/tengine && \
 	./configure --prefix=/root/soft/tengine --with-http_ssl_module --add-module=./nginx-rtmp-module && \
 	make && \
