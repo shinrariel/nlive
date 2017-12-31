@@ -20,6 +20,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget \
 	mkdir /root/web/vod && \
 	mkdir /root/soft/ffmpeg && \
 	mkdir /root/logs && \
+	mkdir /root/web/cert && \
 	cd /root/src && \
 	git clone https://github.com/alibaba/tengine.git && \
 	git clone https://github.com/FFmpeg/FFmpeg.git && \
@@ -35,9 +36,9 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget \
 	cp -r nginx-http-flv-module ./SEnginx && \
 	cp -r nginx-http-flv-module ./nginx-1.13.8 && \
 	cd /root/src/tengine && \
-	./configure --prefix=/root/soft/tengine --with-http_ssl_module --add-module=./nginx-http-flv-module && \
-	make && \
-	make install && \
+#	./configure --prefix=/root/soft/tengine --with-http_ssl_module --add-module=./nginx-rtmp-module && \
+#	make && \
+#	make install && \
 	cd /root/src/SEnginx && \
 	./configure --prefix=/root/soft/senginx --with-http_ssl_module --add-module=./nginx-http-flv-module && \
 	make && \
@@ -64,10 +65,18 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget \
 	mv /root/soft/senginx/conf/nginx.conf /root/soft/senginx/conf/nginx.conf.bak
 	
 ADD conf /root/config
-RUN cp /root/config/nginx.conf /root/soft/tengine/conf && \
-	cp /root/config/nginx.conf /root/soft/nginx/conf && \
-	cp /root/config/nginx.conf /root/soft/senginx/conf
 ADD html /root/web/html
+ADD cert /root/web/cert
+RUN ln -s /root/config/nginx.conf /root/soft/tengine/conf/nginx.conf && \
+	ln -s /root/config/nginx.conf /root/soft/nginx/conf/nginx.conf && \
+	ln -s /root/config/nginx.conf /root/soft/senginx/conf/nginx.conf && \
+	ln -s /root/web/cert/cert.crt /root/soft/tengine/conf/cert.crt && \
+	ln -s /root/web/cert/cert.key /root/soft/tengine/conf/cert.key && \
+	ln -s /root/web/cert/cert.crt /root/soft/nginx/conf/cert.crt && \
+	ln -s /root/web/cert/cert.key /root/soft/nginx/conf/cert.key && \
+	ln -s /root/web/cert/cert.crt /root/soft/senginx/conf/cert.crt && \
+	ln -s /root/web/cert/cert.key /root/soft/senginx/conf/cert.key && \
+
 CMD /bin/bash
 	
 	
