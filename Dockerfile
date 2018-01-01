@@ -82,5 +82,5 @@ RUN ln -s /root/config/nginx.conf /root/soft/tengine/conf/nginx.conf && \
 	chmod 777 /root/shell/stop.sh && \
 	ln -s /root/shell/start_nginx.sh /root/start.sh && \
 	ln -s /root/shell/stop.sh /root/stop.sh
-VOLUME["/root/logs","/root/web","/root/config"]
+VOLUME ["/root/logs","/root/web","/root/config"]
 CMD /bin/bash -c /root/start.sh
