@@ -21,6 +21,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget \
 	mkdir /root/soft/ffmpeg && \
 	mkdir /root/logs && \
 	mkdir /root/web/cert && \
+	mkdir /root/shell && \
 	cd /root/src && \
 	git clone https://github.com/alibaba/tengine.git && \
 	git clone https://github.com/FFmpeg/FFmpeg.git && \
@@ -35,8 +36,8 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget \
 	cp -r nginx-http-flv-module ./tengine && \
 	cp -r nginx-http-flv-module ./SEnginx && \
 	cp -r nginx-http-flv-module ./nginx-1.13.8 && \
-	cd /root/src/tengine && \
-#	./configure --prefix=/root/soft/tengine --with-http_ssl_module --add-module=./nginx-rtmp-module && \
+#	cd /root/src/tengine && \
+#	./configure --prefix=/root/soft/tengine --with-http_ssl_module --add-module=./nginx-http-flv-module && \
 #	make && \
 #	make install && \
 	cd /root/src/SEnginx && \
@@ -67,6 +68,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget \
 ADD conf /root/config
 ADD html /root/web/html
 ADD cert /root/web/cert
+ADD shell /root/shell
 RUN ln -s /root/config/nginx.conf /root/soft/tengine/conf/nginx.conf && \
 	ln -s /root/config/nginx.conf /root/soft/nginx/conf/nginx.conf && \
 	ln -s /root/config/nginx.conf /root/soft/senginx/conf/nginx.conf && \
@@ -75,9 +77,14 @@ RUN ln -s /root/config/nginx.conf /root/soft/tengine/conf/nginx.conf && \
 	ln -s /root/web/cert/cert.crt /root/soft/nginx/conf/cert.crt && \
 	ln -s /root/web/cert/cert.key /root/soft/nginx/conf/cert.key && \
 	ln -s /root/web/cert/cert.crt /root/soft/senginx/conf/cert.crt && \
-	ln -s /root/web/cert/cert.key /root/soft/senginx/conf/cert.key
-
-CMD /bin/bash
+	ln -s /root/web/cert/cert.key /root/soft/senginx/conf/cert.key && \
+	ln -s /root/web/cert/cert.key /root/soft/senginx/conf/cert.key && \
+	chmod 777 /root/shell/start_nginx.sh && \
+	chmod 777 /root/shell/stop.sh && \
+	ln -s /root/shell/start_nginx.sh /root/start.sh && \
+	ln -s /root/shell/stop.sh /root/stop.sh
+VOLUME["/root/logs","/root/web","/root/config"]
+CMD /bin/bash -c /root/start.sh
 	
 	
 	
