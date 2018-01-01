@@ -23,6 +23,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget \
 	mkdir /root/web/cert && \
 	mkdir /root/shell && \
 	cd /root/src && \
+# The module only support nginx version >= 1.11.1 , so SEnginx and tengine are compiled with rtmp module.
 	git clone https://github.com/alibaba/tengine.git && \
 	git clone https://github.com/FFmpeg/FFmpeg.git && \
 	git clone https://github.com/NeusoftSecurity/SEnginx.git && \
@@ -43,13 +44,13 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget \
 	./configure && \
 	make && \
 	make install && \
-	cd /root/src &&
-#	cd /root/src/tengine && \
-#	./configure --prefix=/root/soft/tengine --with-http_ssl_module --add-module=./nginx-http-flv-module && \
-#	make && \
-#	make install && \
+	cd /root/src && \
+	cd /root/src/tengine && \
+	./configure --prefix=/root/soft/tengine --with-http_ssl_module --add-module=./nginx-rtmp-module && \
+	make && \
+	make install && \
 	cd /root/src/SEnginx && \
-	./configure --prefix=/root/soft/senginx --with-http_ssl_module --add-module=./nginx-http-flv-module && \
+	./configure --prefix=/root/soft/senginx --with-http_ssl_module --add-module=./nginx-rtmp-module && \
 	make && \
 	make install && \
 	cd /root/src/nginx-1.13.8 && \
@@ -91,6 +92,7 @@ RUN ln -s /root/config/nginx.conf /root/soft/tengine/conf/nginx.conf && \
 	chmod 777 /root/shell/stop.sh && \
 	ln -s /root/shell/start_nginx.sh /root/start.sh && \
 	ln -s /root/shell/stop.sh /root/stop.sh
+
 VOLUME ["/root/logs","/root/web","/root/config"]
 CMD /bin/bash -c /root/start.sh
 	
