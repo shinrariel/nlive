@@ -36,6 +36,14 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget \
 	cp -r nginx-http-flv-module ./tengine && \
 	cp -r nginx-http-flv-module ./SEnginx && \
 	cp -r nginx-http-flv-module ./nginx-1.13.8 && \
+	cd /root/src && \
+	wget http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz && \
+	tar -zxvf yasm-1.3.0.tar.gz && \
+	cd yasm-1.3.0 && \
+	./configure && \
+	make && \
+	make install && \
+	cd /root/src && \
 	cd /root/src/tengine && \
 	./configure --prefix=/root/soft/tengine --with-http_ssl_module --add-module=./nginx-rtmp-module && \
 	make && \
