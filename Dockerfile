@@ -75,7 +75,7 @@ RUN ln -s /root/config/nginx.conf /root/soft/tengine/conf/nginx.conf && \
 	ln -s /root/web/cert/cert.crt /root/soft/nginx/conf/cert.crt && \
 	ln -s /root/web/cert/cert.key /root/soft/nginx/conf/cert.key && \
 	ln -s /root/web/cert/cert.crt /root/soft/senginx/conf/cert.crt && \
-	ln -s /root/web/cert/cert.key /root/soft/senginx/conf/cert.key && \
+	ln -s /root/web/cert/cert.key /root/soft/senginx/conf/cert.key
 
 CMD /bin/bash
 	
