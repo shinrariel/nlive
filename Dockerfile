@@ -44,6 +44,19 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget \
 	make && \
 	make install && \
 	cd /root/src && \
+	wget http://ftp.gnu.org/gnu/autoconf/autoconf-latest.tar.xz && \
+	tar xvf autoconf-latest.tar.xz && \
+	cd autoconf-latest && \
+	./configure && \
+	make && \
+	make install && \
+	cd /root/src && \
+	wget http://ftp.gnu.org/gnu/automake/automake-1.15.1.tar.xz && \
+	tar xvf automake-1.15.1.tar.xz && \
+	cd automake-1.15.1 && \
+	./configure && \
+	make && \
+	make install && \
 	cd /root/src/tengine && \
 	./configure --prefix=/root/soft/tengine --with-http_ssl_module --add-module=./nginx-rtmp-module && \
 	make && \
