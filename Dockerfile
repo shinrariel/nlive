@@ -63,15 +63,41 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     ln -s /root/soft/senginx/logs /root/logs/senginx_logs && \
     mv /root/soft/tengine/conf/nginx.conf /root/soft/tengine/conf/nginx.conf.bak && \
     mv /root/soft/nginx/conf/nginx.conf /root/soft/nginx/conf/nginx.conf.bak && \
-    mv /root/soft/senginx/conf/nginx.conf /root/soft/senginx/conf/nginx.conf.bak
+    mv /root/soft/senginx/conf/nginx.conf /root/soft/senginx/conf/nginx.conf.bak && \
+    cd /root/src && \
+    wget http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz && \
+    tar -zxvf yasm-1.3.0.tar.gz && \
+    cd yasm-1.3.0 && \
+    ./configure && \
+    make && \
+    make install && \
+    cd /root/src && \
+    git clone --depth 1 http://git.videolan.org/git/x264 && \
+    cd x264 && \
+    PKG_CONFIG_PATH="/root/soft/ffmpeg/lib/pkgconfig"  ./configure \
+    --prefix="/root/soft/ffmpeg" --bindir="/root/soft/ffmpeg/bin" --enable-static && \
+    make && \
+    make install && \
+    cd /root/src && \
+    git clone --depth 1 https://github.com/mstorsjo/fdk-aac && \
+    cd fdk-aac && \
+    autoreconf -fiv && \
+    ./configure --prefix="/root/soft/ffmpeg" --disable-shared && \
+    make && \
+    make install && \
+    cd /root/src/FFmpeg && \
+    PATH="/root/soft/ffmpeg/bin:$PATH" PKG_CONFIG_PATH="/root/soft/ffmpeg/lib/pkgconfig" ./configure \
+    --prefix="/root/soft/ffmpeg" --pkg-config-flags="--static" --extra-cflags="-I /root/soft/ffmpeg/ffmpeg_build/include" \
+    --extra-ldflags="-L /root/soft/ffmpeg/lib" --extra-libs=-lpthread --extra-libs=-lm --bindir="/root/soft/ffmpeg/bin" \
+    --enable-gpl --enable-libfdk_aac --enable-libfreetype --enable-libx264 --enable-nonfree && \
+    make && \
+    make install
     
 ADD conf /root/config
 ADD html /root/web/html
 ADD cert /root/web/cert
 ADD shell /root/shell
-RUN chmod 777 /root/shell/install_ffmpeg.sh && \
-    /bin/bash -c /root/shell/install_ffmpeg.sh && \
-    ln -s /root/config/nginx.conf /root/soft/tengine/conf/nginx.conf && \
+RUN ln -s /root/config/nginx.conf /root/soft/tengine/conf/nginx.conf && \
     ln -s /root/config/nginx.conf /root/soft/nginx/conf/nginx.conf && \
     ln -s /root/config/nginx.conf /root/soft/senginx/conf/nginx.conf && \
     ln -s /root/web/cert/cert.crt /root/soft/tengine/conf/cert.crt && \
