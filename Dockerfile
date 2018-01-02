@@ -44,9 +44,9 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget \
     make && \
     make install && \
     cd /root/src && \
-    wget http://ftp.gnu.org/gnu/autoconf/autoconf-latest.tar.xz && \
-    tar xvf autoconf-latest.tar.xz && \
-    cd autoconf-latest && \
+    wget http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.xz && \
+    tar xvf autoconf-2.69.tar.xz && \
+    cd autoconf-2.69 && \
     ./configure && \
     make && \
     make install && \
