@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 echo -e "\n Install YASM \n"
 cd /root/src
 wget http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz
