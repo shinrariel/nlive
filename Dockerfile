@@ -75,7 +75,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     git clone --depth 1 http://git.videolan.org/git/x264 && \
     cd x264 && \
     PKG_CONFIG_PATH="/root/soft/ffmpeg/lib/pkgconfig"  ./configure \
-    --prefix="/root/soft/ffmpeg" --bindir="/root/soft/ffmpeg/bin" --enable-static && \
+    --prefix="/root/soft/ffmpeg" --bindir="/root/soft/ffmpeg/bin" --enable-static --disable-asm && \
     make && \
     make install && \
     cd /root/src && \
