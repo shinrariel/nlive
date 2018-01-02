@@ -70,7 +70,7 @@ ADD html /root/web/html
 ADD cert /root/web/cert
 ADD shell /root/shell
 RUN chmod 777 /root/shell/install_ffmpeg.sh && \
-    /bin/sh -c /root/shell/install_ffmpeg.sh && \
+    /root/shell/install_ffmpeg.sh && \
     ln -s /root/config/nginx.conf /root/soft/tengine/conf/nginx.conf && \
     ln -s /root/config/nginx.conf /root/soft/nginx/conf/nginx.conf && \
     ln -s /root/config/nginx.conf /root/soft/senginx/conf/nginx.conf && \
