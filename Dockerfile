@@ -1,11 +1,11 @@
 FROM centos:latest
-RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget \
+RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake \
     apr* autoconf automake bison bzip2 bzip2* cloog-ppl compat* cpp curl curl-devel \
     fontconfig fontconfig-devel freetype freetype* freetype-devel gcc gcc-c++ \
     gtk+-devel gd gettext gettext-devel glibc kernel kernel-headers keyutils  \
-    keyutils-libs-devel krb5-devel libcom_err-devel libpng libpng* libpng-devel \
+    keyutils-libs-devel krb5-devel libcom_err-devel libpng libpng* libpng-devel pkgconfig \
     libjpeg* libsepol-devel libselinux-devel libstdc++-devel libtool* libgomp libxml2 \
-    libxml2-devel libXpm* libX* libtiff libtiff* make mpfr ncurses* ntp openssl \
+    libxml2-devel libXpm* libX* libtiff libtiff* make mpfr ncurses* ntp openssl libtool \
     nasm nasm* openssl-devel patch pcre-devel perl php-common php-gd policycoreutils ppl \
     telnet t1lib t1lib* zlib-devel libxml2 libxml2-devel libxslt libxslt-devel unzip && \
     mkdir /root/soft && \
@@ -36,27 +36,6 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget \
     cp -r nginx-http-flv-module ./tengine && \
     cp -r nginx-http-flv-module ./SEnginx && \
     cp -r nginx-http-flv-module ./nginx-1.13.8 && \
-    cd /root/src && \
-    wget http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz && \
-    tar -zxvf yasm-1.3.0.tar.gz && \
-    cd yasm-1.3.0 && \
-    ./configure && \
-    make && \
-    make install && \
-    cd /root/src && \
-    wget http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.xz && \
-    tar xvf autoconf-2.69.tar.xz && \
-    cd autoconf-2.69 && \
-    ./configure && \
-    make && \
-    make install && \
-    cd /root/src && \
-    wget http://ftp.gnu.org/gnu/automake/automake-1.15.1.tar.xz && \
-    tar xvf automake-1.15.1.tar.xz && \
-    cd automake-1.15.1 && \
-    ./configure && \
-    make && \
-    make install && \
     cd /root/src/tengine && \
     ./configure --prefix=/root/soft/tengine --with-http_ssl_module --add-module=./nginx-rtmp-module && \
     make && \
@@ -90,7 +69,9 @@ ADD conf /root/config
 ADD html /root/web/html
 ADD cert /root/web/cert
 ADD shell /root/shell
-RUN ln -s /root/config/nginx.conf /root/soft/tengine/conf/nginx.conf && \
+RUN chmod 777 /root/shell/install_ffmpeg.sh && \
+    /bin/sh -c /root/shell/install_ffmpeg.sh && \
+    ln -s /root/config/nginx.conf /root/soft/tengine/conf/nginx.conf && \
     ln -s /root/config/nginx.conf /root/soft/nginx/conf/nginx.conf && \
     ln -s /root/config/nginx.conf /root/soft/senginx/conf/nginx.conf && \
     ln -s /root/web/cert/cert.crt /root/soft/tengine/conf/cert.crt && \
