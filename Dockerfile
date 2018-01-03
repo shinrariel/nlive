@@ -86,11 +86,11 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     ./configure --prefix="/root/soft/ffmpeg" --disable-shared && \
     make && \
     make install && \
-	cd /root/src && \
-	git clone git://git.ffmpeg.org/rtmpdump && \
-	cd rtmpdump && \
-	make && \
-	make install && \
+    cd /root/src && \
+    git clone git://git.ffmpeg.org/rtmpdump && \
+    cd rtmpdump && \
+    make && \
+    make install && \
     cd /root/src/FFmpeg && \
     PATH="/root/soft/ffmpeg/bin:$PATH" PKG_CONFIG_PATH="/root/soft/ffmpeg/lib/pkgconfig" ./configure \
     --prefix="/root/soft/ffmpeg" --pkg-config-flags="--static" --extra-cflags="-I /root/soft/ffmpeg/ffmpeg_build/include" \
@@ -98,7 +98,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     --enable-gpl --enable-libfdk_aac --enable-libfreetype --enable-libx264 --enable-nonfree && \
     make && \
     make install && \
-	ln -s /root/soft/ffmpeg/bin/ffmpeg /root/ffmpeg
+    ln -s /root/soft/ffmpeg/bin/ffmpeg /root/ffmpeg
     
 ADD conf /root/config
 ADD html /root/web/html
@@ -107,19 +107,14 @@ ADD shell /root/shell
 RUN ln -s /root/config/nginx.conf /root/soft/tengine/conf/nginx.conf && \
     ln -s /root/config/nginx.conf /root/soft/nginx/conf/nginx.conf && \
     ln -s /root/config/nginx.conf /root/soft/senginx/conf/nginx.conf && \
-	ln -s /root/web/html /root/soft/nginx/html && \
-	ln -s /root/web/html /root/soft/senginx/html && \
-	ln -s /root/web/html /root/soft/tengine/html && \
     ln -s /root/web/cert/cert.crt /root/soft/tengine/conf/cert.crt && \
     ln -s /root/web/cert/cert.key /root/soft/tengine/conf/cert.key && \
     ln -s /root/web/cert/cert.crt /root/soft/nginx/conf/cert.crt && \
     ln -s /root/web/cert/cert.key /root/soft/nginx/conf/cert.key && \
     ln -s /root/web/cert/cert.crt /root/soft/senginx/conf/cert.crt && \
     ln -s /root/web/cert/cert.key /root/soft/senginx/conf/cert.key && \
-    chmod 777 /root/shell/start_nginx.sh && \
-	chmod 777 /root/shell/start_senginx.sh && \
-	chmod 777 /root/shell/start_tengine.sh && \
-    chmod 777 /root/shell/stop.sh && \
+    chmod -R 777 /root/shell && \
+    chmod -R 777 /root/web && \
     ln -s /root/shell/start_nginx.sh /root/start.sh && \
     ln -s /root/shell/stop.sh /root/stop.sh
 VOLUME ["/root/logs","/root/web","/root/config"]
