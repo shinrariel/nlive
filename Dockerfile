@@ -112,8 +112,8 @@ RUN ln -s /root/config/nginx.conf /root/soft/tengine/conf/nginx.conf && \
     ln -s /root/web/cert/cert.key /root/soft/nginx/conf/cert.key && \
     ln -s /root/web/cert/cert.crt /root/soft/senginx/conf/cert.crt && \
     ln -s /root/web/cert/cert.key /root/soft/senginx/conf/cert.key && \
-    chmod 777 -R /root/shell && \
-    chmod 777 -R /root/web && \
+    chmod -R 777 /root/shell && \
+    chmod -R 777 /root/web && \
     ln -s /root/shell/start_nginx.sh /root/start.sh && \
     ln -s /root/shell/stop.sh /root/stop.sh
 VOLUME ["/root/logs","/root/web","/root/config"]
