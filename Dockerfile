@@ -49,12 +49,6 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     make && \
     make install && \
     cd /root && \
-    rm -rf /root/soft/tengine/html && \
-    ln -s /root/web/html /root/soft/tengine/html && \
-    rm -rf /root/soft/senginx/html && \
-    ln -s /root/web/html /root/soft/senginx/html && \
-    rm -rf /root/soft/nginx/html && \
-    ln -s /root/web/html /root/soft/nginx/html && \
     ln -s /root/soft/tengine/conf /root/config/tengine_conf && \
     ln -s /root/soft/nginx/conf /root/config/nginx_conf && \
     ln -s /root/soft/senginx/conf /root/config/senginx_conf && \
