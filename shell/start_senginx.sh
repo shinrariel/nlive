@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /root/soft/nginx/sbin
+cd /root/soft/senginx/sbin
 nohup ./nginx &
 while true;
 do sleep 1;
