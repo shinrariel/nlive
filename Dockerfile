@@ -38,7 +38,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     cp -r nginx-http-flv-module ./SEnginx && \
     cp -r nginx-http-flv-module ./nginx-1.13.8 && \
     cd /root/src/tengine && \
-    ./configure --prefix=/root/soft/tengine --with-http_ssl_module --add-module=./nginx-rtmp-module && \
+    ./configure --prefix=/root/soft/tengine --with-http_ssl_module --add-module=./nginx-http-flv-module && \
     make && \
     make install && \
     cd /root/src/SEnginx && \
