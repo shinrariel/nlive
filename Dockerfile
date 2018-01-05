@@ -1,14 +1,5 @@
 FROM centos:latest
-RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake \
-    apr* autoconf automake bison bzip2 bzip2* cloog-ppl compat* cpp curl curl-devel \
-    fontconfig fontconfig-devel freetype freetype* freetype-devel gcc gcc-c++ \
-    gtk+-devel gd gettext gettext-devel glibc kernel kernel-headers keyutils  \
-    keyutils-libs-devel krb5-devel libcom_err-devel libpng libpng* libpng-devel pkgconfig \
-    libjpeg* libsepol-devel libselinux-devel libstdc++-devel libtool* libgomp libxml2 \
-    libxml2-devel libXpm* libX* libtiff libtiff* make mpfr ncurses* ntp openssl libtool \
-    nasm nasm* openssl-devel patch pcre-devel perl php-common php-gd policycoreutils ppl \
-    telnet t1lib t1lib* zlib-devel libxml2 libxml2-devel libxslt libxslt-devel unzip && \
-    mkdir /root/soft && \
+RUN mkdir /root/soft && \
     mkdir /root/src && \
     mkdir /root/config && \
     mkdir /root/web && \
@@ -21,7 +12,21 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     mkdir /root/soft/ffmpeg && \
     mkdir /root/logs && \
     mkdir /root/web/cert && \
-    mkdir /root/shell && \
+    mkdir /root/shell
+ADD conf /root/config
+ADD html /root/web/html
+ADD cert /root/web/cert
+ADD shell /root/shell
+RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake \
+    apr* autoconf automake bison bzip2 bzip2* cloog-ppl compat* cpp curl curl-devel \
+    fontconfig fontconfig-devel freetype freetype* freetype-devel gcc gcc-c++ \
+    gtk+-devel gd gettext gettext-devel glibc kernel kernel-headers keyutils  \
+    keyutils-libs-devel krb5-devel libcom_err-devel libpng libpng* libpng-devel pkgconfig \
+    libjpeg* libsepol-devel libselinux-devel libstdc++-devel libtool* libgomp libxml2 \
+    libxml2-devel libXpm* libX* libtiff libtiff* make mpfr ncurses* ntp openssl libtool \
+    nasm nasm* openssl-devel patch pcre-devel perl php-common php-gd policycoreutils ppl \
+    telnet t1lib t1lib* zlib-devel libxml2 libxml2-devel libxslt libxslt-devel unzip && \
+	yum clean all && \
     cd /root/src && \
     git clone https://github.com/alibaba/tengine.git && \
     git clone https://github.com/FFmpeg/FFmpeg.git && \
@@ -91,13 +96,9 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     --enable-gpl --enable-libfdk_aac --enable-libfreetype --enable-libx264 --enable-nonfree && \
     make && \
     make install && \
-    ln -s /root/soft/ffmpeg/bin/ffmpeg /root/ffmpeg
-    
-ADD conf /root/config
-ADD html /root/web/html
-ADD cert /root/web/cert
-ADD shell /root/shell
-RUN ln -s /root/config/nginx.conf /root/soft/tengine/conf/nginx.conf && \
+    ln -s /root/soft/ffmpeg/bin/ffmpeg /root/ffmpeg && \
+	rm -rf /root/src && \
+    ln -s /root/config/nginx.conf /root/soft/tengine/conf/nginx.conf && \
     ln -s /root/config/nginx.conf /root/soft/nginx/conf/nginx.conf && \
     ln -s /root/config/nginx.conf /root/soft/senginx/conf/nginx.conf && \
     ln -s /root/web/cert/cert.crt /root/soft/tengine/conf/cert.crt && \
