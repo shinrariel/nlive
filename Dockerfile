@@ -26,7 +26,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     libxml2-devel libXpm* libX* libtiff libtiff* make mpfr ncurses* ntp openssl libtool \
     nasm nasm* openssl-devel patch pcre-devel perl php-common php-gd policycoreutils ppl \
     telnet t1lib t1lib* zlib-devel libxml2 libxml2-devel libxslt libxslt-devel unzip && \
-	yum clean all && \
+    yum clean all && \
     cd /root/src && \
     git clone https://github.com/alibaba/tengine.git && \
     git clone https://github.com/FFmpeg/FFmpeg.git && \
@@ -97,7 +97,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     make && \
     make install && \
     ln -s /root/soft/ffmpeg/bin/ffmpeg /root/ffmpeg && \
-	rm -rf /root/src && \
+    rm -rf /root/src && \
     ln -s /root/config/nginx.conf /root/soft/tengine/conf/nginx.conf && \
     ln -s /root/config/nginx.conf /root/soft/nginx/conf/nginx.conf && \
     ln -s /root/config/nginx.conf /root/soft/senginx/conf/nginx.conf && \
