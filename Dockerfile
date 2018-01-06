@@ -113,7 +113,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     cd rtmpdump && \
     make -j4 && \
     make install && \
-    cp /usr/local/lib/* /usr/lib64/ && \
+    \cp -rf /usr/local/lib/* /usr/lib64/ && \
 # Install ffmpeg
     cd /root/src/FFmpeg && \
     PATH="/root/soft/ffmpeg/bin:$PATH" PKG_CONFIG_PATH="/root/soft/ffmpeg/lib/pkgconfig" ./configure \
@@ -128,7 +128,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     curl -O https://nodejs.org/dist/latest-$node_series/node-$node_ver-linux-x64.tar.gz node.tar.gz && \
     tar -xvzf node.tar.gz && \
     rm -rf node.tar.gz && \
-    \cp -R -f node/* . && \
+    \cp -rf node/* . && \
     rm -rf node && \
 # Installing Monitor Panel
     cd /root/soft && \
