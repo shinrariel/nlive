@@ -57,15 +57,15 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
 # Compiling nginx
     cd /root/src/tengine && \
     ./configure --prefix=/root/soft/tengine --with-http_ssl_module --add-module=./nginx-$mod_comp-module && \
-    make && \
+    make -j4 && \
     make install && \
     cd /root/src/SEnginx && \
     ./configure --prefix=/root/soft/senginx --with-http_ssl_module --add-module=./nginx-$mod_comp-module && \
-    make && \
+    make -j4 && \
     make install && \
     cd /root/src/nginx-$nginx_ver && \
     ./configure --prefix=/root/soft/nginx --with-http_ssl_module --add-module=./nginx-$mod_comp-module && \
-    make && \
+    make -j4 && \
     make install && \
 # Create soft links
     cd /root && \
@@ -86,7 +86,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     tar -zxvf yasm-$yasmver.tar.gz && \
     cd yasm-$yasmver && \
     ./configure && \
-    make && \
+    make -j4 && \
     make install && \
 # Install libx264
     cd /root/src && \
@@ -94,7 +94,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     cd x264 && \
     PKG_CONFIG_PATH="/root/soft/ffmpeg/lib/pkgconfig"  ./configure \
     --prefix="/root/soft/ffmpeg" --bindir="/root/soft/ffmpeg/bin" --enable-static --disable-asm && \
-    make && \
+    make -j4 && \
     make install && \
 # Install libfdk_aac
     cd /root/src && \
@@ -102,13 +102,13 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     cd fdk-aac && \
     autoreconf -fiv && \
     ./configure --prefix="/root/soft/ffmpeg" --disable-shared && \
-    make && \
+    make -j4 && \
     make install && \
 # Install librtmp
     cd /root/src && \
     git clone git://git.ffmpeg.org/rtmpdump && \
     cd rtmpdump && \
-    make && \
+    make -j4 && \
     make install && \
 # Install ffmpeg
     cd /root/src/FFmpeg && \
@@ -116,7 +116,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     --prefix="/root/soft/ffmpeg" --pkg-config-flags="--static" --extra-cflags="-I /root/soft/ffmpeg/ffmpeg_build/include" \
     --extra-ldflags="-L /root/soft/ffmpeg/lib" --extra-libs=-lpthread --extra-libs=-lm --bindir="/root/soft/ffmpeg/bin" \
     --enable-gpl --enable-libfdk_aac --enable-libfreetype --enable-libx264 --enable-nonfree && \
-    make && \
+    make -j4 && \
     make install && \
     ln -s /root/soft/ffmpeg/bin/ffmpeg /root/ffmpeg && \
 # Installing node.js
@@ -124,7 +124,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     git clone https://github.com/nodejs/node.git && \
     cd node && \
     ./configure && \
-    make && \
+    make -j4 && \
     make install && \
 # Installing Monitor Panel
     cd /root/soft && \
