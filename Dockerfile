@@ -129,6 +129,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     mv node-$node_ver-linux-x64.tar.gz node.tar.gz && \
     tar -xvzf node.tar.gz && \
     rm -rf node.tar.gz && \
+    mv node-$node_ver-linux-x64 node && \
     \cp -rf node/* . && \
     rm -rf node && \
 # Installing Monitor Panel
