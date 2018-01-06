@@ -132,12 +132,16 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     ln -s /root/web/cert/cert.crt /root/soft/senginx/conf/cert.crt && \
     ln -s /root/web/cert/cert.key /root/soft/senginx/conf/cert.key && \
     ln -s /root/shell/start_nginx.sh /root/start.sh && \
-    ln -s /root/shell/stop.sh /root/stop.sh
+    ln -s /root/shell/stop.sh /root/stop.sh && \
 # Give permissions to files and folders
     chmod -R 777 /root/shell && \
     chmod -R 777 /root/web && \
-    chmod 777 /root && \
+    chmod 777 /root
 # Volume settings
 VOLUME ["/root/logs","/root/web","/root/config"]
+# Port settings
+EXPOSE 80
+EXPOSE 443
+EXPOSE 1935
 # Startup Scripts
 CMD /bin/bash -c /root/start.sh
