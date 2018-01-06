@@ -125,7 +125,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     ln -s /root/soft/ffmpeg/bin/ffmpeg /root/ffmpeg && \
 # Installing node.js
     cd /usr && \
-    curl -O https://nodejs.org/dist/latest-$node_series/node-$node_ver-linux-x64.tar.gz node.tar.gz && \
+    curl -O node.tar.gz https://nodejs.org/dist/latest-$node_series/node-$node_ver-linux-x64.tar.gz && \
     tar -xvzf node.tar.gz && \
     rm -rf node.tar.gz && \
     \cp -rf node/* . && \
