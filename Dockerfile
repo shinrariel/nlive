@@ -45,26 +45,26 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     git clone https://github.com/NeusoftSecurity/SEnginx.git && \
     git clone https://github.com/arut/nginx-rtmp-module.git && \
     git clone https://github.com/winshining/nginx-http-flv-module.git && \
-    wget http://nginx.org/download/nginx-($nginx_ver).tar.gz && \
-    tar -xzf nginx-($nginx_ver).tar.gz && \
+    wget http://nginx.org/download/nginx-$nginx_ver.tar.gz && \
+    tar -xzf nginx-$nginx_ver.tar.gz && \
 # Copy module src
     cp -r nginx-rtmp-module ./tengine && \
     cp -r nginx-rtmp-module ./SEnginx && \
-    cp -r nginx-rtmp-module ./nginx-($nginx_ver) && \
+    cp -r nginx-rtmp-module ./nginx-$nginx_ver && \
     cp -r nginx-http-flv-module ./tengine && \
     cp -r nginx-http-flv-module ./SEnginx && \
-    cp -r nginx-http-flv-module ./nginx-($nginx_ver) && \
+    cp -r nginx-http-flv-module ./nginx-$nginx_ver && \
 # Compiling nginx
     cd /root/src/tengine && \
-    ./configure --prefix=/root/soft/tengine --with-http_ssl_module --add-module=./nginx-($mode_comp)-module && \
+    ./configure --prefix=/root/soft/tengine --with-http_ssl_module --add-module=./nginx-$mode_comp-module && \
     make && \
     make install && \
     cd /root/src/SEnginx && \
-    ./configure --prefix=/root/soft/senginx --with-http_ssl_module --add-module=./nginx-($mode_comp)-module && \
+    ./configure --prefix=/root/soft/senginx --with-http_ssl_module --add-module=./nginx-$mode_comp-module && \
     make && \
     make install && \
     cd /root/src/nginx-$nginx_ver && \
-    ./configure --prefix=/root/soft/nginx --with-http_ssl_module --add-module=./nginx-($mode_comp)-module && \
+    ./configure --prefix=/root/soft/nginx --with-http_ssl_module --add-module=./nginx-$mode_comp-module && \
     make && \
     make install && \
 # Create soft links
@@ -82,9 +82,9 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
 # Setting up compile environment for ffmpeg
     cd /root/src && \
 # Install YASM
-    wget http://www.tortall.net/projects/yasm/releases/yasm-($yasmver).tar.gz && \
-    tar -zxvf yasm-($yasmver).tar.gz && \
-    cd yasm-($yasmver) && \
+    wget http://www.tortall.net/projects/yasm/releases/yasm-$yasmver.tar.gz && \
+    tar -zxvf yasm-$yasmver.tar.gz && \
+    cd yasm-$yasmver && \
     ./configure && \
     make && \
     make install && \
