@@ -119,6 +119,22 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     make && \
     make install && \
     ln -s /root/soft/ffmpeg/bin/ffmpeg /root/ffmpeg && \
+# Installing node.js
+    cd /root/src && \
+    git clone https://github.com/nodejs/node.git && \
+    cd node && \
+    ./configure && \
+    make && \
+    make install && \
+# Installing Monitor Panel
+    cd /root/soft && \
+    git clone https://github.com/fiftysoft/nginx-rtmp-monitoring.git panel && \
+    cd panel && \
+    npm install && \
+    mv config.json config.json.bak && \
+    cp /root/config/panel/config.json . && \
+    cd language && \
+    cp /root/config/panel/zh.json . && \
 # Clean up the source
     rm -rf /root/src && \
 # Linking files
@@ -143,5 +159,6 @@ VOLUME ["/root/logs","/root/web","/root/config"]
 EXPOSE 80
 EXPOSE 443
 EXPOSE 1935
+EXPOSE 8080
 # Startup Scripts
 CMD /bin/bash -c /root/start.sh
