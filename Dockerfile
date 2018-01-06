@@ -56,15 +56,15 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     cp -r nginx-http-flv-module ./nginx-$nginx_ver && \
 # Compiling nginx
     cd /root/src/tengine && \
-    ./configure --prefix=/root/soft/tengine --with-http_ssl_module --add-module=./nginx-$mode_comp-module && \
+    ./configure --prefix=/root/soft/tengine --with-http_ssl_module --add-module=./nginx-$mod_comp-module && \
     make && \
     make install && \
     cd /root/src/SEnginx && \
-    ./configure --prefix=/root/soft/senginx --with-http_ssl_module --add-module=./nginx-$mode_comp-module && \
+    ./configure --prefix=/root/soft/senginx --with-http_ssl_module --add-module=./nginx-$mod_comp-module && \
     make && \
     make install && \
     cd /root/src/nginx-$nginx_ver && \
-    ./configure --prefix=/root/soft/nginx --with-http_ssl_module --add-module=./nginx-$mode_comp-module && \
+    ./configure --prefix=/root/soft/nginx --with-http_ssl_module --add-module=./nginx-$mod_comp-module && \
     make && \
     make install && \
 # Create soft links
