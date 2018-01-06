@@ -26,6 +26,9 @@ ENV nginx_ver=1.13.8
 ENV mod_comp=rtmp
 # YASM verson
 ENV yasmver=1.3.0
+# Node.js version
+ENV node_series=v8.x
+ENV node_ver=v8.9.4
 # Environment settingup
 RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake \
     apr* autoconf automake bison bzip2 bzip2* cloog-ppl compat* cpp curl curl-devel \
@@ -85,7 +88,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     wget http://www.tortall.net/projects/yasm/releases/yasm-$yasmver.tar.gz && \
     tar -zxvf yasm-$yasmver.tar.gz && \
     cd yasm-$yasmver && \
-    ./configure && \
+    ./configure --prefix=/usr && \
     make -j4 && \
     make install && \
 # Install libx264
@@ -110,6 +113,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     cd rtmpdump && \
     make -j4 && \
     make install && \
+    cp /usr/local/lib/* /usr/lib64/ && \
 # Install ffmpeg
     cd /root/src/FFmpeg && \
     PATH="/root/soft/ffmpeg/bin:$PATH" PKG_CONFIG_PATH="/root/soft/ffmpeg/lib/pkgconfig" ./configure \
@@ -120,12 +124,12 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     make install && \
     ln -s /root/soft/ffmpeg/bin/ffmpeg /root/ffmpeg && \
 # Installing node.js
-    cd /root/src && \
-    git clone https://github.com/nodejs/node.git && \
-    cd node && \
-    ./configure && \
-    make -j4 && \
-    make install && \
+    cd /usr && \
+    curl -O https://nodejs.org/dist/latest-$node_series/node-$node_ver-linux-x64.tar.gz node.tar.gz
+    tar -xvzf node.tar.gz && \
+    rm -rf node.tar.gz && \
+    \cp -R -f node/* . && \
+    rm -rf node && \
 # Installing Monitor Panel
     cd /root/soft && \
     git clone https://github.com/fiftysoft/nginx-rtmp-monitoring.git panel && \
