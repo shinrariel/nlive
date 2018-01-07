@@ -152,6 +152,5 @@ VOLUME ["/root/logs","/root/web","/root/config"]
 EXPOSE 80
 EXPOSE 443
 EXPOSE 1935
-EXPOSE 8080
 # Startup Scripts
 CMD /bin/bash -c /root/start.sh
