@@ -12,6 +12,8 @@ RUN mkdir /root/soft && \
     mkdir /root/web/hls && \
     mkdir /root/web/vod && \
     mkdir /root/web/dash && \
+    mkdir /root/web/hls/transcode && \
+    mkdir /root/web/dash/transcode && \
     mkdir /root/web/record && \
     ln -s /root/web/record /root/web/html/record && \
     mkdir /root/soft/ffmpeg && \
