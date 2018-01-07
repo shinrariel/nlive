@@ -11,6 +11,9 @@ RUN mkdir /root/soft && \
     mkdir /root/soft/nginx && \
     mkdir /root/web/hls && \
     mkdir /root/web/vod && \
+    mkdir /root/web/dash && \
+    mkdir /root/web/record && \
+    ln -s /root/web/record /root/web/html/record && \
     mkdir /root/soft/ffmpeg && \
     mkdir /root/logs && \
     mkdir /root/web/cert && \
@@ -139,6 +142,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     npm install && \
     mv config.json config.json.bak && \
     ln -s /root/config/panel/config.json config.json && \
+    \cp -rf stat.xsl /root/web/html/stat.xsl && \
     cd language && \
     ln -s /root/config/panel/zh.json zh.json && \
 # Clean up the source
