@@ -138,9 +138,9 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     cd panel && \
     npm install && \
     mv config.json config.json.bak && \
-    cp /root/config/panel/config.json . && \
+    ln -s /root/config/panel/config.json config.json && \
     cd language && \
-    cp /root/config/panel/zh.json . && \
+    ln -s /root/config/panel/zh.json zh.json && \
 # Clean up the source
     rm -rf /root/src && \
 # Linking files
