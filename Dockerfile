@@ -26,6 +26,9 @@ ENV nginx_ver=1.13.8
 ENV mod_comp=http-flv
 # YASM verson
 ENV yasmver=1.3.0
+# Node.js version
+ENV node_series=v8.x
+ENV node_ver=v8.9.4
 # Environment settingup
 RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake \
     apr* autoconf automake bison bzip2 bzip2* cloog-ppl compat* cpp curl curl-devel \
@@ -57,15 +60,15 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
 # Compiling nginx
     cd /root/src/tengine && \
     ./configure --prefix=/root/soft/tengine --with-http_ssl_module --add-module=./nginx-$mod_comp-module && \
-    make && \
+    make -j4 && \
     make install && \
     cd /root/src/SEnginx && \
     ./configure --prefix=/root/soft/senginx --with-http_ssl_module --add-module=./nginx-$mod_comp-module && \
-    make && \
+    make -j4 && \
     make install && \
     cd /root/src/nginx-$nginx_ver && \
     ./configure --prefix=/root/soft/nginx --with-http_ssl_module --add-module=./nginx-$mod_comp-module && \
-    make && \
+    make -j4 && \
     make install && \
 # Create soft links
     cd /root && \
@@ -85,8 +88,8 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     wget http://www.tortall.net/projects/yasm/releases/yasm-$yasmver.tar.gz && \
     tar -zxvf yasm-$yasmver.tar.gz && \
     cd yasm-$yasmver && \
-    ./configure && \
-    make && \
+    ./configure --prefix=/usr && \
+    make -j4 && \
     make install && \
 # Install libx264
     cd /root/src && \
@@ -94,7 +97,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     cd x264 && \
     PKG_CONFIG_PATH="/root/soft/ffmpeg/lib/pkgconfig"  ./configure \
     --prefix="/root/soft/ffmpeg" --bindir="/root/soft/ffmpeg/bin" --enable-static --disable-asm && \
-    make && \
+    make -j4 && \
     make install && \
 # Install libfdk_aac
     cd /root/src && \
@@ -102,23 +105,42 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     cd fdk-aac && \
     autoreconf -fiv && \
     ./configure --prefix="/root/soft/ffmpeg" --disable-shared && \
-    make && \
+    make -j4 && \
     make install && \
 # Install librtmp
     cd /root/src && \
     git clone git://git.ffmpeg.org/rtmpdump && \
     cd rtmpdump && \
-    make && \
+    make -j4 && \
     make install && \
+    \cp -rf /usr/local/lib/* /usr/lib64/ && \
 # Install ffmpeg
     cd /root/src/FFmpeg && \
     PATH="/root/soft/ffmpeg/bin:$PATH" PKG_CONFIG_PATH="/root/soft/ffmpeg/lib/pkgconfig" ./configure \
     --prefix="/root/soft/ffmpeg" --pkg-config-flags="--static" --extra-cflags="-I /root/soft/ffmpeg/ffmpeg_build/include" \
     --extra-ldflags="-L /root/soft/ffmpeg/lib" --extra-libs=-lpthread --extra-libs=-lm --bindir="/root/soft/ffmpeg/bin" \
     --enable-gpl --enable-libfdk_aac --enable-libfreetype --enable-libx264 --enable-nonfree && \
-    make && \
+    make -j4 && \
     make install && \
     ln -s /root/soft/ffmpeg/bin/ffmpeg /root/ffmpeg && \
+# Installing node.js
+    cd /usr && \
+    wget https://nodejs.org/dist/latest-$node_series/node-$node_ver-linux-x64.tar.gz && \
+    mv node-$node_ver-linux-x64.tar.gz node.tar.gz && \
+    tar -xvzf node.tar.gz && \
+    rm -rf node.tar.gz && \
+    mv node-$node_ver-linux-x64 node && \
+    \cp -rf node/* . && \
+    rm -rf node && \
+# Installing Monitor Panel
+    cd /root/soft && \
+    git clone https://github.com/fiftysoft/nginx-rtmp-monitoring.git panel && \
+    cd panel && \
+    npm install && \
+    mv config.json config.json.bak && \
+    ln -s /root/config/panel/config.json config.json && \
+    cd language && \
+    ln -s /root/config/panel/zh.json zh.json && \
 # Clean up the source
     rm -rf /root/src && \
 # Linking files
@@ -143,5 +165,6 @@ VOLUME ["/root/logs","/root/web","/root/config"]
 EXPOSE 80
 EXPOSE 443
 EXPOSE 1935
+EXPOSE 8080
 # Startup Scripts
 CMD /bin/bash -c /root/start.sh
