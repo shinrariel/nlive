@@ -128,25 +128,6 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     make -j4 && \
     make install && \
     ln -s /root/soft/ffmpeg/bin/ffmpeg /root/ffmpeg && \
-# Installing node.js
-    cd /usr && \
-    wget https://nodejs.org/dist/latest-$node_series/node-$node_ver-linux-x64.tar.gz && \
-    mv node-$node_ver-linux-x64.tar.gz node.tar.gz && \
-    tar -xvzf node.tar.gz && \
-    rm -rf node.tar.gz && \
-    mv node-$node_ver-linux-x64 node && \
-    \cp -rf node/* . && \
-    rm -rf node && \
-# Installing Monitor Panel
-    cd /root/soft && \
-    git clone https://github.com/fiftysoft/nginx-rtmp-monitoring.git panel && \
-    cd panel && \
-    npm install && \
-    mv config.json config.json.bak && \
-    ln -s /root/config/panel/config.json config.json && \
-    \cp -rf stat.xsl /root/web/html/stat.xsl && \
-    cd language && \
-    ln -s /root/config/panel/zh.json zh.json && \
 # Clean up the source
     rm -rf /root/src && \
 # Linking files
