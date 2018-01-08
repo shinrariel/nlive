@@ -145,6 +145,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
 # Give permissions to files and folders
     chmod -R 777 /root/shell && \
     chmod -R 777 /root/web && \
+	chmod -R 777 /root/logs && \
     chmod 777 /root
 # Volume settings
 VOLUME ["/root/logs","/root/web","/root/config"]
