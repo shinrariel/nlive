@@ -29,7 +29,7 @@ ADD shell /root/shell
 ENV nginx_ver=1.13.8
 # Which module would you compile
 ENV mod_comp=http-flv
-# YASM verson
+# YASM version
 ENV yasmver=1.3.0
 # Node.js version
 ENV node_series=v8.x
@@ -63,12 +63,13 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     cp -r nginx-http-flv-module ./SEnginx && \
     cp -r nginx-http-flv-module ./nginx-$nginx_ver && \
 # Compiling nginx
+# Http-flv temporarily unavaliable for old nginx versions
     cd /root/src/tengine && \
-    ./configure --prefix=/root/soft/tengine --with-http_ssl_module --add-module=./nginx-$mod_comp-module && \
+    ./configure --prefix=/root/soft/tengine --with-http_ssl_module --add-module=./nginx-rtmp-module && \
     make -j4 && \
     make install && \
     cd /root/src/SEnginx && \
-    ./configure --prefix=/root/soft/senginx --with-http_ssl_module --add-module=./nginx-$mod_comp-module && \
+    ./configure --prefix=/root/soft/senginx --with-http_ssl_module --add-module=./nginx-rtmp-module && \
     make -j4 && \
     make install && \
     cd /root/src/nginx-$nginx_ver && \
@@ -145,6 +146,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
 # Give permissions to files and folders
     chmod -R 777 /root/shell && \
     chmod -R 777 /root/web && \
+	chmod -R 777 /root/logs && \
     chmod 777 /root
 # Volume settings
 VOLUME ["/root/logs","/root/web","/root/config"]
