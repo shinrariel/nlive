@@ -29,7 +29,7 @@ ADD shell /root/shell
 ENV nginx_ver=1.13.8
 # Which module would you compile
 ENV mod_comp=rtmp
-# YASM verson
+# YASM version
 ENV yasmver=1.3.0
 # Node.js version
 ENV node_series=v8.x
