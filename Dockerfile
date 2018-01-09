@@ -69,7 +69,7 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     make -j4 && \
     make install && \
     cd /root/src/SEnginx && \
-    ./configure --prefix=/root/soft/senginx --with-http_ssl_module --add-module=./nginx-rtmp-module && \
+    ./configure --prefix=/root/soft/senginx --with-http_ssl_module --add-module=./nginx-$mod_comp-module && \
     make -j4 && \
     make install && \
     cd /root/src/nginx-$nginx_ver && \
