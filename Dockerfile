@@ -35,20 +35,12 @@ ENV yasmver=1.3.0
 ENV node_series=v8.x
 ENV node_ver=v8.9.4
 # Environment settingup
-RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake \
-    apr* autoconf automake bison bzip2 bzip2* cloog-ppl compat* cpp curl curl-devel \
-    fontconfig fontconfig-devel freetype freetype* freetype-devel gcc gcc-c++ \
-    gtk+-devel gd gettext gettext-devel glibc kernel kernel-headers keyutils  \
-    keyutils-libs-devel krb5-devel libcom_err-devel libpng libpng* libpng-devel pkgconfig \
-    libjpeg* libsepol-devel libselinux-devel libstdc++-devel libtool* libgomp libxml2 \
-    libxml2-devel libXpm* libX* libtiff libtiff* make mpfr ncurses* ntp openssl libtool \
-    nasm nasm* openssl-devel patch pcre-devel perl php-common php-gd policycoreutils ppl \
-    telnet t1lib t1lib* zlib-devel libxml2 libxml2-devel libxslt libxslt-devel unzip && \
+RUN yum install -y zlib zlib-devel openssl* pcre pcre-devel git bash psmisc wget autoconf automake \
+    make gcc gcc-c++ patch pkgconfig libtool nasm nasm* && \
 # Clean the downloaded packages
     yum clean all && \
 # Clone the source code
     cd /root/src && \
-    git clone https://github.com/alibaba/tengine.git && \
     git clone https://github.com/FFmpeg/FFmpeg.git && \
     git clone https://github.com/NeusoftSecurity/SEnginx.git && \
     git clone https://github.com/arut/nginx-rtmp-module.git && \
@@ -56,17 +48,11 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     wget http://nginx.org/download/nginx-$nginx_ver.tar.gz && \
     tar -xzf nginx-$nginx_ver.tar.gz && \
 # Copy module src
-    cp -r nginx-rtmp-module ./tengine && \
     cp -r nginx-rtmp-module ./SEnginx && \
     cp -r nginx-rtmp-module ./nginx-$nginx_ver && \
-    cp -r nginx-http-flv-module ./tengine && \
     cp -r nginx-http-flv-module ./SEnginx && \
     cp -r nginx-http-flv-module ./nginx-$nginx_ver && \
 # Compiling nginx
-    cd /root/src/tengine && \
-    ./configure --prefix=/root/soft/tengine --with-http_ssl_module --add-module=./nginx-$mod_comp-module && \
-    make -j4 && \
-    make install && \
     cd /root/src/SEnginx && \
     ./configure --prefix=/root/soft/senginx --with-http_ssl_module --add-module=./nginx-$mod_comp-module && \
     make -j4 && \
@@ -77,17 +63,14 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     make install && \
 # Create soft links
     cd /root && \
-    ln -s /root/soft/tengine/conf /root/config/tengine_conf && \
     ln -s /root/soft/nginx/conf /root/config/nginx_conf && \
     ln -s /root/soft/senginx/conf /root/config/senginx_conf && \
-    ln -s /root/soft/tengine/logs /root/logs/tengine_logs && \
     ln -s /root/soft/nginx/logs /root/logs/nginx_logs && \
     ln -s /root/soft/senginx/logs /root/logs/senginx_logs && \
 # Backup the default conf file
-    mv /root/soft/tengine/conf/nginx.conf /root/soft/tengine/conf/nginx.conf.bak && \
     mv /root/soft/nginx/conf/nginx.conf /root/soft/nginx/conf/nginx.conf.bak && \
     mv /root/soft/senginx/conf/nginx.conf /root/soft/senginx/conf/nginx.conf.bak && \
-# Setting up compile environment for ffmpeg
+# Setting up compile environment for FFmpeg
     cd /root/src && \
 # Install YASM
     wget http://www.tortall.net/projects/yasm/releases/yasm-$yasmver.tar.gz && \
@@ -130,12 +113,10 @@ RUN yum install -y git go sudo bash psmisc net-tools bash-completion wget cmake 
     ln -s /root/soft/ffmpeg/bin/ffmpeg /root/ffmpeg && \
 # Clean up the source
     rm -rf /root/src && \
+	yum autoremove -y git wget autoconf automake make gcc gcc-c++ patch pkgconfig nasm nasm* && \
 # Linking files
-    ln -s /root/config/nginx.conf /root/soft/tengine/conf/nginx.conf && \
     ln -s /root/config/nginx.conf /root/soft/nginx/conf/nginx.conf && \
     ln -s /root/config/nginx.conf /root/soft/senginx/conf/nginx.conf && \
-    ln -s /root/web/cert/cert.crt /root/soft/tengine/conf/cert.crt && \
-    ln -s /root/web/cert/cert.key /root/soft/tengine/conf/cert.key && \
     ln -s /root/web/cert/cert.crt /root/soft/nginx/conf/cert.crt && \
     ln -s /root/web/cert/cert.key /root/soft/nginx/conf/cert.key && \
     ln -s /root/web/cert/cert.crt /root/soft/senginx/conf/cert.crt && \
