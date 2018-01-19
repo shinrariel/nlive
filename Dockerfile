@@ -36,7 +36,7 @@ ENV node_series=v8.x
 ENV node_ver=v8.9.4
 # Environment settingup
 RUN yum install -y zlib zlib-devel openssl* pcre pcre-devel git bash psmisc wget autoconf automake \
-    make gcc gcc-c++ patch pkgconfig libtool nasm nasm* && \
+    make gcc gcc-c++ patch pkgconfig libtool nasm nasm* freetype* && \
 # Clean the downloaded packages
     yum clean all && \
 # Clone the source code
