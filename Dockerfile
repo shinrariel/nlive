@@ -113,7 +113,7 @@ RUN yum install -y zlib zlib-devel openssl* pcre pcre-devel git bash psmisc wget
     ln -s /root/soft/ffmpeg/bin/ffmpeg /root/ffmpeg && \
 # Clean up the source
     rm -rf /root/src && \
-	yum autoremove -y git wget autoconf automake make gcc kernel-headers patch pkgconfig nasm nasm* && \
+	yum autoremove -y git wget autoconf automake make gcc kernel-headers patch cpp nasm nasm* && \
 # Linking files
     ln -s /root/config/nginx.conf /root/soft/nginx/conf/nginx.conf && \
     ln -s /root/config/nginx.conf /root/soft/senginx/conf/nginx.conf && \
