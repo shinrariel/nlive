@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "Starting SENginX"
 cd /root/soft/senginx/sbin
 nohup ./nginx &
 while true;
