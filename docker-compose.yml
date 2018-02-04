@@ -1,5 +1,5 @@
 nlive_flv:
-    image: zhouweitong/nlive:hls
+    image: zhouweitong/nlive:flv
     ports:
         - 80:80
         - 443:443
