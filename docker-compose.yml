@@ -1,10 +1,10 @@
 nlive_flv:
     image: zhouweitong/nlive:flv
     ports:
-        - 80:80
-        - 443:443
-        - 1935:1935
+        - 80: 80
+        - 443: 443
+        - 1935: 1935
     volumes:
-        - nlive_flv_logs:/root/logs
-        - nlive_flv_web:/root/web
-        - nlive_flv_config:/root/config
+        - nlive_flv_logs: /root/logs
+        - nlive_flv_web: /root/web
+        - nlive_flv_config: /root/config
