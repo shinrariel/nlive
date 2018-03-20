@@ -1,10 +1,10 @@
 nlive:
-    image: zhouweitong/nlive:hls
+    image: "zhouweitong/nlive:hls"
     ports:
-      - 80: 80
-      - 443: 443
-      - 1935: 1935
+      - "80:80"
+      - "443:443"
+      - "1935:1935"
     volumes:
-      - nlive_logs: /root/logs
-      - nlive_web: /root/web
-      - nlive_config: /root/config
+      - nlive_logs:/root/logs
+      - nlive_web:/root/web
+      - nlive_config:/root/config
