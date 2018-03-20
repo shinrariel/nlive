@@ -42,21 +42,21 @@ RUN yum install -y zlib zlib-devel openssl* pcre pcre-devel git bash psmisc wget
 # Clone the source code
     cd /root/src && \
     git clone https://github.com/FFmpeg/FFmpeg.git && \
-    git clone https://github.com/NeusoftSecurity/SEnginx.git && \
+   #git clone https://github.com/NeusoftSecurity/SEnginx.git && \
     git clone https://github.com/arut/nginx-rtmp-module.git && \
     git clone https://github.com/winshining/nginx-http-flv-module.git && \
     wget http://nginx.org/download/nginx-$nginx_ver.tar.gz && \
     tar -xzf nginx-$nginx_ver.tar.gz && \
 # Copy module src
-    cp -r nginx-rtmp-module ./SEnginx && \
+    #cp -r nginx-rtmp-module ./SEnginx && \
     cp -r nginx-rtmp-module ./nginx-$nginx_ver && \
     cp -r nginx-http-flv-module ./SEnginx && \
     cp -r nginx-http-flv-module ./nginx-$nginx_ver && \
 # Compiling nginx
-    cd /root/src/SEnginx && \
-    ./configure --prefix=/root/soft/senginx --with-http_ssl_module --add-module=./nginx-$mod_comp-module && \
-    make -j4 && \
-    make install && \
+    #cd /root/src/SEnginx && \
+    #./configure --prefix=/root/soft/senginx --with-http_ssl_module #--add-module=./nginx-$mod_comp-module && \
+    #make -j4 && \
+    #make install && \
     cd /root/src/nginx-$nginx_ver && \
     ./configure --prefix=/root/soft/nginx --with-http_ssl_module --add-module=./nginx-$mod_comp-module && \
     make -j4 && \
@@ -64,12 +64,12 @@ RUN yum install -y zlib zlib-devel openssl* pcre pcre-devel git bash psmisc wget
 # Create soft links
     cd /root && \
     ln -s /root/soft/nginx/conf /root/config/nginx_conf && \
-    ln -s /root/soft/senginx/conf /root/config/senginx_conf && \
+    #ln -s /root/soft/senginx/conf /root/config/senginx_conf && \
     ln -s /root/soft/nginx/logs /root/logs/nginx_logs && \
-    ln -s /root/soft/senginx/logs /root/logs/senginx_logs && \
+    #ln -s /root/soft/senginx/logs /root/logs/senginx_logs && \
 # Backup the default conf file
     mv /root/soft/nginx/conf/nginx.conf /root/soft/nginx/conf/nginx.conf.bak && \
-    mv /root/soft/senginx/conf/nginx.conf /root/soft/senginx/conf/nginx.conf.bak && \
+    #mv /root/soft/senginx/conf/nginx.conf /root/soft/senginx/conf/nginx.conf.bak && \
 # Setting up compile environment for FFmpeg
     cd /root/src && \
 # Install YASM
@@ -113,20 +113,20 @@ RUN yum install -y zlib zlib-devel openssl* pcre pcre-devel git bash psmisc wget
     ln -s /root/soft/ffmpeg/bin/ffmpeg /root/ffmpeg && \
 # Clean up the source
     rm -rf /root/src && \
-	yum autoremove -y git wget autoconf automake make gcc kernel-headers patch cpp nasm nasm* && \
+    yum autoremove -y git wget autoconf automake make gcc kernel-headers patch cpp nasm nasm* && \
 # Linking files
     ln -s /root/config/nginx.conf /root/soft/nginx/conf/nginx.conf && \
-    ln -s /root/config/nginx.conf /root/soft/senginx/conf/nginx.conf && \
+    #ln -s /root/config/nginx.conf /root/soft/senginx/conf/nginx.conf && \
     ln -s /root/web/cert/cert.crt /root/soft/nginx/conf/cert.crt && \
     ln -s /root/web/cert/cert.key /root/soft/nginx/conf/cert.key && \
-    ln -s /root/web/cert/cert.crt /root/soft/senginx/conf/cert.crt && \
-    ln -s /root/web/cert/cert.key /root/soft/senginx/conf/cert.key && \
+    #ln -s /root/web/cert/cert.crt /root/soft/senginx/conf/cert.crt && \
+    #ln -s /root/web/cert/cert.key /root/soft/senginx/conf/cert.key && \
     ln -s /root/shell/start_nginx.sh /root/start.sh && \
     ln -s /root/shell/stop.sh /root/stop.sh && \
 # Give permissions to files and folders
     chmod -R 777 /root/shell && \
     chmod -R 777 /root/web && \
-	chmod -R 777 /root/logs && \
+    chmod -R 777 /root/logs && \
     chmod 777 /root
 # Volume settings
 VOLUME ["/root/logs","/root/web","/root/config"]
