@@ -126,7 +126,6 @@ RUN yum install -y zlib zlib-devel openssl* pcre pcre-devel git bash psmisc wget
 VOLUME ["/root/logs","/root/web","/root/config"]
 # Port settings
 EXPOSE 80
-EXPOSE 443
 EXPOSE 1935
 # Startup Scripts
 CMD /bin/bash -c /root/start.sh
