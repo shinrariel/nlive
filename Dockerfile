@@ -18,12 +18,10 @@ RUN mkdir /root/soft && \
     ln -s /root/web/record /root/web/html/record && \
     mkdir /root/soft/ffmpeg && \
     mkdir /root/logs && \
-    mkdir /root/web/cert && \
     mkdir /root/shell
 # Add the config and shell files
 ADD conf /root/config
 ADD html /root/web/html
-ADD cert /root/web/cert
 ADD shell /root/shell
 # Nginx version.You can change this according to the offical website
 ENV nginx_ver=1.13.8
@@ -117,10 +115,6 @@ RUN yum install -y zlib zlib-devel openssl* pcre pcre-devel git bash psmisc wget
 # Linking files
     ln -s /root/config/nginx.conf /root/soft/nginx/conf/nginx.conf && \
     ln -s /root/config/nginx.conf /root/soft/senginx/conf/nginx.conf && \
-    ln -s /root/web/cert/cert.crt /root/soft/nginx/conf/cert.crt && \
-    ln -s /root/web/cert/cert.key /root/soft/nginx/conf/cert.key && \
-    ln -s /root/web/cert/cert.crt /root/soft/senginx/conf/cert.crt && \
-    ln -s /root/web/cert/cert.key /root/soft/senginx/conf/cert.key && \
     ln -s /root/shell/start_nginx.sh /root/start.sh && \
     ln -s /root/shell/stop.sh /root/stop.sh && \
 # Give permissions to files and folders
@@ -132,7 +126,6 @@ RUN yum install -y zlib zlib-devel openssl* pcre pcre-devel git bash psmisc wget
 VOLUME ["/root/logs","/root/web","/root/config"]
 # Port settings
 EXPOSE 80
-EXPOSE 443
 EXPOSE 1935
 # Startup Scripts
 CMD /bin/bash -c /root/start.sh
