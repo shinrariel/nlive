@@ -2,7 +2,6 @@ nlive:
     image: "zhouweitong/nlive:hls"
     ports:
       - "80:80"
-      - "443:443"
       - "1935:1935"
     volumes:
       - nlive_logs:/root/logs
